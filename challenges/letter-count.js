@@ -50,3 +50,29 @@ function letterCount(string) {
   // After you iterate through the entire word array, return the object
   return output;
 }
+
+// --------------- With bonuses ---------------
+function letterCount(string) {
+  var output={};
+  string.toLowerCase().replace(/[^a-zA-Z ]/g, "").split("").forEach(function(el) {
+    // .toLowerCase() downcases the entire word so that capital/lowercase letters are identified as the same letter
+    // ..replace(/[^a-zA-Z ]/g, "") uses something called REGEX, which we'll talk about in-depth when we get to Ruby
+    // It basically replaces anything that's not a letter a-z with an empty string (deletes it)
+    if (!output[el]) {
+      output[el] = 1;
+    } else {
+      output[el] += 1;
+    }
+  });
+  // Return the object with counts converted into percentages
+  return calculateFrequency(output, string.length);
+}
+
+// Helper method to return an object with frequency instead of count
+function calculateFrequency(object, length) {
+  var letterArray = Object.keys(object);
+  letterArray.forEach(function(letter) {
+    object[letter] = (object[letter] / length);
+  });
+  return object;
+}
