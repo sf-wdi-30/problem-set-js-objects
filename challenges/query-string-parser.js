@@ -45,3 +45,14 @@
 */
 
 // YOUR CODE HERE
+
+// --------------- Solution ---------------
+function parseQueryString(string) {
+  var pairs = string.split("&");
+  var output = {};
+  pairs.forEach(function(el) {
+    var set = el.split("=");
+    output[set[0]] = set[1];
+  });
+  return output;
+}
