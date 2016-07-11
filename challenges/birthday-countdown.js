@@ -72,3 +72,36 @@ function birthdayReminder(birthdays) {
   });
   return output;
 }
+
+
+// --------------- With bonuses ---------------
+
+// (Uses the same helper methods as above)
+function birthdayReminder(birthdays) {
+  var output =[];
+  // Calculates the days until each person's birthday and creates a sentence
+  // Both values are added to the person object
+  birthdays.forEach(function(el) {
+    var birthdayString = formatDate(el.dob);
+    var daysUntil = daysUntilDate(birthdayString);
+    el.days = daysUntil;
+    el.sentence = el.name + "'s birthday is in " + parseInt(daysUntil) + " days";
+  });
+  // Sorts the birthday array by the 'days' key in each object
+  birthdays.sort(function (a,b){
+    if(a.days > b.days) {
+      return 1;
+    }
+    if (a.days < b.days) {
+      return -1;
+    }
+    return 0;
+  });
+  // Pushes the sentences into an array to be returned
+  birthdays.forEach(function(el) {
+    output.push(el.sentence);
+  });
+  return output;
+}
+
+// Note: ^this bonus code isn't very dry!
