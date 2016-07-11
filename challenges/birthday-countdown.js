@@ -34,3 +34,41 @@
 */
 
 // YOUR CODE HERE
+
+// --------------- Solution ---------------
+
+// Finds the number of days between now and a date in the future
+function daysUntilDate(string) {
+  var date = Date.parse(string);
+  var today = Date.now();
+  return ((date - today)/(1000*60*60*24));
+}
+
+// Helper method that creates a string with the next instance of the birthday
+// This sets the correct year for birthdays that have already passed this year
+function formatDate(dateString) {
+  // This is where the current date is determined, so it is "future proofed"
+  var today = new Date();
+  var dateArr = dateString.split("/");
+  var todaysMonth = (today.getMonth() + 1);
+  var todaysDate = (today.getDate());
+  var todaysYear = (today.getFullYear());
+  // If the month is in the future or it's the current month and the date hasn't happened
+  if ((parseInt(dateArr[0]) > parseInt(todaysMonth)) || ((parseInt(dateArr[0]) === parseInt(todaysMonth)) && (parseInt(dateArr[1]) > parseInt(todaysDate))) ) {
+    dateArr[2] = todaysYear;
+    // If the month has already happened or it's the current month and the date already happened
+  } else {
+    dateArr[2] = todaysYear+1;
+  }
+  return dateArr.join("/");
+}
+
+function birthdayReminder(birthdays) {
+  var output = [];
+  birthdays.forEach(function(el) {
+    var birthdayString = formatDate(el.dob);
+    var daysUntil = daysUntilDate(birthdayString);
+    output.push(el.name + "'s birthday is in " + parseInt(daysUntil) + " days");
+  });
+  return output;
+}
