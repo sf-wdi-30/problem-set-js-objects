@@ -57,3 +57,23 @@ function pingPong(table) {
   table[objectIndex] = null;
   return table;
 }
+
+// --------------- STRETCH #2 (set the 'speed') ---------------
+
+function pingPong(table, speed) {
+  var objectIndex = table.findIndex(function(el) {
+    return !!el;
+  });
+  var object = table[objectIndex];
+  // This loop runs as many times as the 'speed'
+  for (var i=0; i<speed; i++) {
+    if (Math.floor(object.steps/(table.length-1)) % 2 === 0) {
+      table[objectIndex + 1] = object;
+    } else {
+      table[objectIndex - 1] = object;
+    }
+    object.steps += 1;
+    table[objectIndex] = null;
+  }
+  return table;
+}
